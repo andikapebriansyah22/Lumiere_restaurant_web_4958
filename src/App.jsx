@@ -5,6 +5,7 @@ import About from './components/about';
 import Services from './components/Services';
 import Contact from './components/Contact';
 import Footer from './components/footer';
+import Menu from './components/menu';
 import './index.css';
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/Services" element={<Services />} />
+          <Route path="/menu" element={<Menu />} />
           <Route path="/contact" element={<Contact />} />
         </Routes>
       </div>
