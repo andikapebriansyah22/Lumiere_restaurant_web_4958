@@ -39,7 +39,7 @@ const Services = () => {
         <img src="/assets/img/catering.svg" alt="Excellent Food" className="services__icon" />
           <h3 className="services__title">Catering Services</h3>
           <p className="services__description">
-            We provide catering services for events of any size, with a menu tailored to your needs.
+            We provide catering services for events of any size, with a menu tailored to your needs. Hope you enjoy our food.
           </p>
         </div>
         <div className="services__content">
