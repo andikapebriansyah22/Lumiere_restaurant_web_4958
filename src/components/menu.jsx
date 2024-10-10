@@ -44,9 +44,8 @@ const Menu = () => {
             className="menu__img"
           />
           <h3 className="menu__name">Fragrant Salad</h3>
-          <span className="menu__preci">Rp.50.000</span>
+          <span className="menu__preci">Rp.60.000</span>
         </div>
-        {/* Tambahkan item menu lainnya di sini */}
       </div>
     </section>
   );
