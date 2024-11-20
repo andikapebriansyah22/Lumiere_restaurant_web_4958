@@ -1,5 +1,5 @@
 #dibungkus ke app dengan node
-FROM node:16-alpine
+FROM node:18-alpine
 
 #path
 WORKDIR /app
