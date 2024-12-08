@@ -1,0 +1,69 @@
+name: CI/CD Workflow
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    name: Build and Test
+    runs-on: ubuntu-latest
+
+    steps:
+    # Step 1: Checkout repository
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    # Step 2: Set up Node.js
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+
+    # Step 3: Install dependencies
+    - name: Install dependencies
+      run: npm install
+
+    # Step 4: Run tests
+    - name: Run tests
+      run: npm test
+
+    # Step 5: Build Docker image
+    - name: Build Docker Image
+      run: |
+        docker build -t my-app:${{ github.sha }} .
+
+  deploy:
+    name: Deploy to Production
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+
+    steps:
+    # Step 1: Checkout repository
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    # Step 2: Log in to DockerHub
+    - name: Log in to DockerHub
+      uses: docker/login-action@v2
+      with:
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+
+    # Step 3: Push Docker Image
+    - name: Push Docker Image
+      run: |
+        docker tag my-app:${{ github.sha }} my-dockerhub-username/my-app:latest
+        docker push my-dockerhub-username/my-app:latest
+
+    # Step 4: Deploy to server (optional, depends on your infrastructure)
+    - name: Deploy to Server
+      run: |
+        ssh user@server "docker pull my-dockerhub-username/my-app:latest && \
+                         docker stop my-app || true && \
+                         docker run -d -p 8080:8080 --name my-app my-dockerhub-username/my-app:latest"
