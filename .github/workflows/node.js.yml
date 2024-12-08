@@ -46,9 +46,3 @@ jobs:
         docker tag lumiereapna:${{ github.sha }} andikapebriansyah/lumiereapna:latest
         docker push andikapebriansyah/lumiereapna:latest
 
-    # Step 7: Deploy to Server (Optional)
-    - name: Deploy to Server
-      run: |
-        ssh user@server "docker pull andikapebriansyah/lumiereapna:latest && \
-                         docker stop lumiereapna || true && \
-                         docker run -d -p 8080:8080 --name lumiereapna andikapebriansyah/lumiereapna:latest"
