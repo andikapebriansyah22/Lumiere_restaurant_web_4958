@@ -31,7 +31,7 @@ jobs:
     # Step 4: Build Docker image
     - name: Build Docker Image
       run: |
-        docker build -t my-app:${{ github.sha }} .
+        docker build -t lumiereapna:${{ github.sha }} .
 
     # Step 5: Log in to DockerHub
     - name: Log in to DockerHub
@@ -43,12 +43,12 @@ jobs:
     # Step 6: Push Docker Image
     - name: Push Docker Image
       run: |
-        docker tag my-app:${{ github.sha }} my-dockerhub-username/my-app:latest
-        docker push my-dockerhub-username/my-app:latest
+        docker tag lumiereapna:${{ github.sha }} andikapebriansyah/lumiereapna:latest
+        docker push andikapebriansyah/lumiereapna:latest
 
     # Step 7: Deploy to Server (Optional)
     - name: Deploy to Server
       run: |
-        ssh user@server "docker pull my-dockerhub-username/my-app:latest && \
-                         docker stop my-app || true && \
-                         docker run -d -p 8080:8080 --name my-app my-dockerhub-username/my-app:latest"
+        ssh user@server "docker pull andikapebriansyah/lumiereapna:latest && \
+                         docker stop lumiereapna || true && \
+                         docker run -d -p 8080:8080 --name lumiereapna andikapebriansyah/lumiereapna:latest"
